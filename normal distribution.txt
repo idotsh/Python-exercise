@@ -1,0 +1,31 @@
+import numpy as np          
+import pandas as pd
+import matplotlib.pyplot as plt
+
+pwr_data = pd.read_csv('C:\Users\Jimmy\Desktop\stake.csv')
+len(pwr_data)
+pwr = iq_data['pwr']
+mean = pwr.mean()
+mean
+std = pwr.std()
+std
+#normfun正态分布函数，mu: 均值，sigma:标准差，pdf:概率密度函数，np.exp():概率密度函数公式
+def normfun(x,mu, sigma):
+    pdf = np.exp(-((x - mu)**2) / (2* sigma**2)) / (sigma * np.sqrt(2*np.pi))
+    return pdf
+# x的范围为0-30，以1为单位,需x根据范围调试
+x = np.arange(0, 3,1)
+
+# x数对应的概率密度
+y = normfun(x, mean, std)
+
+# 参数,颜色，线宽
+plt.plot(x,y, color='g',linewidth = 3)
+
+#数据，数组，颜色，颜色深浅，组宽，显示频率
+plt.hist(pwr, bins =5, color = 'r',alpha=0.5,rwidth= 0.9, normed=True)
+
+plt.title('pwr distribution')
+plt.xlabel('pwr value')
+plt.ylabel('Probability')
+plt.show()
